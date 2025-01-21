@@ -1,0 +1,21 @@
+repos:
+  - repo: local
+    hooks:
+      - id: example
+        name: Check if files exist
+        entry: |
+          ubuntu:24.04 /bin/bash -c '\
+            echo "new run started"; \
+            found=true; \
+            for fn in $*; \
+            do \
+              if [ -f $fn ]; \
+              then \
+                echo "found $fn"; \
+              else \
+                echo "$fn not found"; \
+                found=false; \
+              fi; \
+            done; \
+            $found'
+        language: docker_image
